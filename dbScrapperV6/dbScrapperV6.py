@@ -13,7 +13,7 @@ parser.add_argument("-s", "--start", default=0, help="Id to start from", type=in
 parser.add_argument("-f", "--finish", default=0, help="Id to finish at", type=int)
 parser.add_argument("-d", "--delay", default=2.5, help="Specify a cycle delay", type=float)
 parser.add_argument("-r", "--retry", default=3, help="Max number of retries allowed", type=int)
-parser.add_argument("--status", default="status.json", help="Specify a path to save status file", type=str)
+parser.add_argument("--status", default="config/status.json", help="Specify a path to save status file", type=str)
 parser.add_argument("--override", default=False, help="Override status file data", type=bool)
 args = parser.parse_args()
 
@@ -47,6 +47,12 @@ Args parsed:
 
 \tOVERRIDE: {parsedOverride}
 """)
+
+# create config folder
+try:
+    mkdir("config/")
+except:
+    pass
 
 # if parameters parsed then define variables, if not read status file
 if parsedOverride:
