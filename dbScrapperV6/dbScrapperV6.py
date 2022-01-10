@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
+from os import mkdir
 import requests, json, argparse, time
 
 # define console parameters to be parsed
@@ -82,9 +83,8 @@ else:
                 raise FileNotFoundError
         # if the FileNotFound is raised then create a fresh status file with default parameters
         except FileNotFoundError:
-            print("Status file not found or unusable!")
+            print("Status file not found or unusable. Creating new status file...")
             with open(parsedStatus, "w") as file:
-                print("Creating status file...")
                 file.write(json.dumps({"finished":False, "lastId":parsedStart, "maxId":parsedFinish}, indent=4))
 
 # initialize MongoDB client
@@ -108,7 +108,7 @@ if not finished:
                 time.sleep(parsedDelay)
 
                 # request data per id
-                print("Requesting id", x, end=": ")
+                print("\nRequesting id", x, end=": ")
                 rq = requests.get(parsedUrl + str(x))
 
                 # check request status code
@@ -140,6 +140,7 @@ if not finished:
                         print("Not found")
                     case 429:
                         print("Too many requests")
+                        continue
                     case 500:
                         print("Jikan error")
                         with open("jikan_errors.txt", "at") as f:
@@ -161,7 +162,7 @@ if not finished:
             # update status
             lastId = x
             with open(parsedStatus, "w") as status:
-                print("\tUpdating status\n")
+                print("\tUpdating status")
                 status.write(json.dumps({"finished":False, "lastId":lastId, "maxId":maxId}, indent=4))
     #try: pass
     except Exception as e:
