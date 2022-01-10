@@ -1,5 +1,5 @@
 # dbScrapperV6
-This script is used to scrap data from an _API_ and save it to a _MongoDB_ database.
+This script is used to scrap data from an _API_ and save it to a ***MongoDB*** database.
 
 # Features
 - The script gets the configuration parameters by parsing them through the console when the script is executed
