@@ -24,3 +24,6 @@ dbScrapperV6.py url host database collection [-h] [-s START] [-f FINISH] [-d DEL
 - **-r**, **--retry**: Max number of retries allowed _(default **3**)_
 - **--status**: Specify a path to save status file _(default **config/status.json**)_
 - **--override**: Override status file data _(default **False**)_
+
+# Docker
+This script can be run as a Docker container, parsing the arguments as ***environment variables*** when executing the `docker run` command
